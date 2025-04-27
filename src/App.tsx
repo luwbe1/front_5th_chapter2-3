@@ -3,6 +3,7 @@ import Header from "./widgets/ui/Header.tsx"
 import Footer from "./widgets/ui/Footer.tsx"
 import PostsManagerPage from "./pages/PostsManagerPage.tsx"
 
+// App
 const App = () => {
   return (
     <Router>
