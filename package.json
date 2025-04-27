@@ -1,5 +1,5 @@
 {
-  "name": "front-end-2-3",
+  "name": "front-5th-chapter2-3",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,13 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prettier": "prettier --write ./src"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.74.4",
+    "@tanstack/react-query-devtools": "^5.74.6",
+    "jotai": "^2.12.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
