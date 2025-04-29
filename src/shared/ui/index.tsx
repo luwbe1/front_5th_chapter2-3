@@ -1,12 +1,7 @@
-export { Button } from './button/Button';
-export { Card, CardHeader, CardContent, CardTitle } from './card/Card';
-export {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from './dialog/Dialog';
-export { Input } from './input/Input';
+export { Button } from './Button';
+export { Card, CardHeader, CardContent, CardTitle } from './Card';
+export { Dialog, DialogContent, DialogHeader, DialogTitle } from './Dialog';
+export { Input } from './Input';
 export {
   Select,
   SelectGroup,
@@ -14,7 +9,7 @@ export {
   SelectContent,
   SelectItem,
   SelectValue,
-} from './select/Select';
+} from './Select';
 export {
   Table,
   TableHeader,
@@ -22,5 +17,5 @@ export {
   TableBody,
   TableRow,
   TableHead,
-} from './table/Table';
-export { Textarea } from './textarea/Textarea';
+} from './Table';
+export { Textarea } from './Textarea';
