@@ -1,14 +1,20 @@
 import { Button } from '../../../shared/ui';
 import { ThumbsUp, Edit2, Trash2, Plus } from 'lucide-react';
 import { highlightText } from '../../../shared/utils/highlightText';
+import {
+  Comment,
+  CreateCommentRequest,
+} from '../../../entities/comment/model/type';
 
 interface CommentsListProps {
-  comments: Record<number, any[]>;
+  comments: Record<number, Comment[]>;
   postId: number;
   searchQuery: string;
+  setNewComment: (comment: CreateCommentRequest) => void;
+  setShowAddCommentDialog: (add: boolean) => void;
   likeComment: (commentId: number, postId: number) => void;
   deleteComment: (commentId: number, postId: number) => void;
-  setSelectedComment: (comment: any) => void;
+  setSelectedComment: (comment: Comment) => void;
   setShowEditCommentDialog: (open: boolean) => void;
 }
 
@@ -17,6 +23,8 @@ export const CommentsList = ({
   comments,
   postId,
   searchQuery,
+  setNewComment,
+  setShowAddCommentDialog,
   likeComment,
   deleteComment,
   setSelectedComment,

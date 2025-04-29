@@ -6,12 +6,13 @@ import {
   Textarea,
   Button,
 } from '../../../shared/ui';
+import { CreateCommentRequest } from '../../../entities/comment/model/type';
 
 interface CommentAddDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  newComment: { body: string; postId: number | null; userId: number };
-  setNewComment: (comment: any) => void;
+  newComment: { body: string; postId: number; userId: number };
+  setNewComment: (comment: CreateCommentRequest) => void;
   addComment: () => void;
 }
 

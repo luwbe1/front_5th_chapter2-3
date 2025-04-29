@@ -4,11 +4,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../../../shared/ui';
+import { User } from '../../../entities/user/model/type';
 
 interface UserInfoDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  selectedUser: any | null;
+  selectedUser: User | null;
 }
 
 export const UserInfoDialog = ({

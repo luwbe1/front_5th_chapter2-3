@@ -6,12 +6,13 @@ import {
   Textarea,
   Button,
 } from '../../../shared/ui';
+import { Comment } from '../../../entities/comment/model/type';
 
 interface CommentEditDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  selectedComment: any | null;
-  setSelectedComment: (comment: any) => void;
+  selectedComment: Comment | null;
+  setSelectedComment: (comment: Comment) => void;
   updateComment: () => void;
 }
 

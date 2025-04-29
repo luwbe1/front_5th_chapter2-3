@@ -7,12 +7,13 @@ import {
   Textarea,
   Button,
 } from '../../../shared/ui';
+import { Post } from '../../../entities/post/model/type';
 
 interface PostEditDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  selectedPost: any | null;
-  setSelectedPost: (post: any) => void;
+  selectedPost: Post | null;
+  setSelectedPost: (post: Post) => void;
   updatePost: () => void;
 }
 

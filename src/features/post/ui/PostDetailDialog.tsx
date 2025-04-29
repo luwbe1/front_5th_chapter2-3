@@ -5,11 +5,12 @@ import {
   DialogTitle,
 } from '../../../shared/ui';
 import { highlightText } from '../../../shared/utils/highlightText';
+import { Post } from '../../../entities/post/model/type';
 
 interface PostDetailDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  selectedPost: any | null;
+  selectedPost: Post | null;
   searchQuery: string;
   CommentsListComponent: React.ComponentType<{ postId: number }>;
 }

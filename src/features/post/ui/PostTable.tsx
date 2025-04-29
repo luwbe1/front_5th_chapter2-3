@@ -15,16 +15,18 @@ import {
   Trash2,
 } from 'lucide-react';
 import { highlightText } from '../../../shared/utils/highlightText';
+import { Post } from '../../../entities/post/model/type';
+import { User } from '../../../entities/user/model/type';
 
 interface PostTableProps {
-  posts: any[];
+  posts: Post[];
   searchQuery: string;
   selectedTag: string;
   setSelectedTag: (tag: string) => void;
   updateURL: () => void;
-  openUserModal: (user: any) => void;
-  openPostDetail: (post: any) => void;
-  setSelectedPost: (post: any) => void;
+  openUserModal: (user: User) => void;
+  openPostDetail: (post: Post) => void;
+  setSelectedPost: (post: Post) => void;
   setShowEditDialog: (open: boolean) => void;
   deletePost: (postId: number) => void;
 }
@@ -82,14 +84,14 @@ export const PostTable = ({
             <TableCell>
               <div
                 className="flex items-center space-x-2 cursor-pointer"
-                onClick={() => openUserModal(post.author)}
+                onClick={() => openUserModal(post.user.author)}
               >
                 <img
-                  src={post.author?.image}
-                  alt={post.author?.username}
+                  src={post.user?.image}
+                  alt={post.user?.username}
                   className="w-8 h-8 rounded-full"
                 />
-                <span>{post.author?.username}</span>
+                <span>{post.user?.username}</span>
               </div>
             </TableCell>
             <TableCell>
