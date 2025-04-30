@@ -1,21 +1,18 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui';
-import { User } from '@/entities/user/model/type';
+import { useAtomValue, useSetAtom } from 'jotai';
+import {
+  selectedUserAtom,
+  showUserModalAtom,
+} from '@/entities/user/model/atom';
 
-interface UserInfoDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  selectedUser: User | null;
-}
-
-export const UserInfoDialog = ({
-  open,
-  onOpenChange,
-  selectedUser,
-}: UserInfoDialogProps) => {
+export const UserInfoDialog = () => {
+  const open = useAtomValue(showUserModalAtom);
+  const setOpen = useSetAtom(showUserModalAtom);
+  const selectedUser = useAtomValue(selectedUserAtom);
   if (!selectedUser) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>사용자 정보</DialogTitle>
