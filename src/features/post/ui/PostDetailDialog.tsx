@@ -1,26 +1,35 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui';
 import { highlightText } from '@/shared/utils/highlightText';
-import { Post } from '@/entities/post/model/type';
+import { useAtomValue, useAtom } from 'jotai';
+import {
+  selectedPostAtom,
+  showPostDetailDialogAtom,
+} from '@/entities/post/model/atom';
+import { searchQueryAtom } from '@/features/post/model/atom';
+import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
+import { CommentsList } from '@/features/comment/ui/CommentList';
 
-interface PostDetailDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  selectedPost: Post | null;
-  searchQuery: string;
-  CommentsListComponent: React.ComponentType<{ postId: number }>;
-}
+export const PostDetailDialog = () => {
+  const selectedPost = useAtomValue(selectedPostAtom);
+  const searchQuery = useAtomValue(searchQueryAtom);
+  const [showPostDetailDialog, setShowPostDetailDialog] = useAtom(
+    showPostDetailDialogAtom
+  );
 
-export const PostDetailDialog = ({
-  open,
-  onOpenChange,
-  selectedPost,
-  searchQuery,
-  CommentsListComponent,
-}: PostDetailDialogProps) => {
+  const {
+    comments,
+    setNewComment,
+    setShowAddCommentDialog,
+    likeComment,
+    deleteComments,
+    setSelectedComment,
+    setShowEditCommentDialog,
+  } = useCommentHandlers();
+
   if (!selectedPost) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={showPostDetailDialog} onOpenChange={setShowPostDetailDialog}>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle>
@@ -29,7 +38,17 @@ export const PostDetailDialog = ({
         </DialogHeader>
         <div className="space-y-4">
           <p>{highlightText(selectedPost.body, searchQuery)}</p>
-          <CommentsListComponent postId={selectedPost.id} />
+          <CommentsList
+            comments={comments}
+            postId={selectedPost.id}
+            searchQuery={searchQuery}
+            setNewComment={setNewComment}
+            setShowAddCommentDialog={setShowAddCommentDialog}
+            likeComment={likeComment}
+            deleteComment={deleteComments}
+            setSelectedComment={setSelectedComment}
+            setShowEditCommentDialog={setShowEditCommentDialog}
+          />
         </div>
       </DialogContent>
     </Dialog>
