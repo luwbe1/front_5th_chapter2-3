@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { Plus } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';
+import { Card, CardContent, CardHeader } from '@/shared/ui';
 import { PostDialogs } from '@/widgets/post/PostDialogs';
 import { PostContent } from '@/widgets/post/PostContent';
+import { PostHeader } from '@/widgets/post/PostHeader';
 import { getTags } from '@/entities/post/api/api';
 import { Post } from '@/entities/post/model/type';
 import { User } from '@/entities/user/model/type';
@@ -44,7 +44,6 @@ const PostsManager = () => {
   const [sortBy, setSortBy] = useAtom(sortByAtom);
   const [sortOrder, setSortOrder] = useAtom(sortOrderAtom);
   const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
-  const [, setShowAddDialog] = useAtom(showAddDialogAtom);
   const [, setSelectedPost] = useAtom(selectedPostAtom);
   const [, setSelectedUser] = useAtom(selectedUserAtom);
   const [, setShowUserModal] = useAtom(showUserModalAtom);
@@ -117,13 +116,7 @@ const PostsManager = () => {
   return (
     <Card className="w-full max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span>게시물 관리자</span>
-          <Button onClick={() => setShowAddDialog(true)}>
-            <Plus className="w-4 h-4 mr-2" />
-            게시물 추가
-          </Button>
-        </CardTitle>
+        <PostHeader />
       </CardHeader>
       <CardContent>
         <PostContent
