@@ -13,13 +13,13 @@ import { PostPagination } from '../features/post/ui/PaginationControls';
 import { PostTable } from '../features/post/ui/PostTable';
 import { PostFilters } from '../features/post/ui/PostsFilter';
 import {
-  getPosts,
-  getTags,
-  getSearchedPosts,
   getPostsByTag,
   postCreatePost,
   putUpdatedPost,
   deletePost,
+  getPosts,
+  getTags,
+  getSearchedPosts,
 } from '../entities/post/api/api';
 import { Tag, Post } from '../entities/post/model/type';
 import { User } from '../entities/user/model/type';
@@ -32,45 +32,72 @@ import {
   patchLikeComment,
 } from '../entities/comment/api/api';
 import { Comment } from '../entities/comment/model/type';
+import { useAtom } from 'jotai';
+import {
+  skipAtom,
+  limitAtom,
+  searchQueryAtom,
+  sortByAtom,
+  sortOrderAtom,
+  selectedTagAtom,
+} from '../features/post/model/atom';
+import {
+  postsAtom,
+  totalAtom,
+  newPostAtom,
+  showAddDialogAtom,
+  selectedPostAtom,
+  showEditDialogAtom,
+  showPostDetailDialogAtom,
+  tagsAtom,
+} from '../entities/post/model/atom';
+import {
+  commentsAtom,
+  selectedCommentAtom,
+  newCommentAtom,
+  showAddCommentDialogAtom,
+  showEditCommentDialogAtom,
+} from '../entities/comment/model/atom';
+import {
+  selectedUserAtom,
+  showUserModalAtom,
+} from '../entities/user/model/atom';
 
 const PostsManager = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
 
   // 상태 관리
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [total, setTotal] = useState(0);
-  const [skip, setSkip] = useState(parseInt(queryParams.get('skip') || '0'));
-  const [limit, setLimit] = useState(
-    parseInt(queryParams.get('limit') || '10')
+  const [posts, setPosts] = useAtom(postsAtom);
+  const [total, setTotal] = useAtom(totalAtom);
+  const [skip, setSkip] = useAtom(skipAtom);
+  const [limit, setLimit] = useAtom(limitAtom);
+  const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
+  const [sortBy, setSortBy] = useAtom(sortByAtom);
+  const [sortOrder, setSortOrder] = useAtom(sortOrderAtom);
+  const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
+  const [newPost, setNewPost] = useAtom(newPostAtom);
+  const [showAddDialog, setShowAddDialog] = useAtom(showAddDialogAtom);
+  const [selectedPost, setSelectedPost] = useAtom(selectedPostAtom);
+  const [showEditDialog, setShowEditDialog] = useAtom(showEditDialogAtom);
+  const [comments, setComments] = useAtom(commentsAtom);
+  const [selectedComment, setSelectedComment] = useAtom(selectedCommentAtom);
+  const [newComment, setNewComment] = useAtom(newCommentAtom);
+  const [showAddCommentDialog, setShowAddCommentDialog] = useAtom(
+    showAddCommentDialogAtom
   );
-  const [searchQuery, setSearchQuery] = useState(
-    queryParams.get('search') || ''
+  const [showEditCommentDialog, setShowEditCommentDialog] = useAtom(
+    showEditCommentDialogAtom
   );
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const [sortBy, setSortBy] = useState(queryParams.get('sortBy') || '');
-  const [sortOrder, setSortOrder] = useState(
-    queryParams.get('sortOrder') || 'asc'
+  const [selectedUser, setSelectedUser] = useAtom(selectedUserAtom);
+  const [showUserModal, setShowUserModal] = useAtom(showUserModalAtom);
+  const [showPostDetailDialog, setShowPostDetailDialog] = useAtom(
+    showPostDetailDialogAtom
   );
-  const [showAddDialog, setShowAddDialog] = useState(false);
-  const [showEditDialog, setShowEditDialog] = useState(false);
-  const [newPost, setNewPost] = useState({ title: '', body: '', userId: 1 });
+  const [tags, setTags] = useAtom(tagsAtom);
+
+  // loading
   const [loading, setLoading] = useState(false);
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [selectedTag, setSelectedTag] = useState(queryParams.get('tag') || '');
-  const [comments, setComments] = useState<Record<number, Comment[]>>({});
-  const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
-  const [newComment, setNewComment] = useState({
-    body: '',
-    postId: 0,
-    userId: 1,
-  });
-  const [showAddCommentDialog, setShowAddCommentDialog] = useState(false);
-  const [showEditCommentDialog, setShowEditCommentDialog] = useState(false);
-  const [showPostDetailDialog, setShowPostDetailDialog] = useState(false);
-  const [showUserModal, setShowUserModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   // URL 업데이트 함수
   const updateURL = () => {
@@ -314,7 +341,7 @@ const PostsManager = () => {
     setLimit(parseInt(params.get('limit') || '10'));
     setSearchQuery(params.get('search') || '');
     setSortBy(params.get('sortBy') || '');
-    setSortOrder(params.get('sortOrder') || 'asc');
+    setSortOrder((params.get('sortOrder') as 'asc' | 'desc') || 'asc');
     setSelectedTag(params.get('tag') || '');
   }, [location.search]);
 

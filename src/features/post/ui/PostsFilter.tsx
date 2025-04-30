@@ -19,8 +19,8 @@ interface PostFiltersProps {
   updateURL: () => void;
   sortBy: string;
   setSortBy: (value: string) => void;
-  sortOrder: string;
-  setSortOrder: (value: string) => void;
+  sortOrder: 'asc' | 'desc';
+  setSortOrder: (value: 'asc' | 'desc') => void;
 }
 
 export const PostFilters = ({
