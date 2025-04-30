@@ -2,13 +2,7 @@ import { useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';
-import { CommentsList } from '@/features/comment/ui/CommentList';
-import { UserInfoDialog } from '@/features/user/ui/UserInfoDialog';
-import { PostDetailDialog } from '@/features/post/ui/PostDetailDialog';
-import { CommentEditDialog } from '@/features/comment/ui/CommentEditDialog';
-import { CommentAddDialog } from '@/features/comment/ui/CommentAddDialog';
-import { PostEditDialog } from '@/features/post/ui/PostEditDialog';
-import { PostAddDialog } from '@/features/post/ui/PostAddDialog';
+import { PostDialogs } from '@/widgets/post/PostDialogs';
 import { PostContent } from '@/widgets/post/PostContent';
 import { getTags } from '@/entities/post/api/api';
 import { Post } from '@/entities/post/model/type';
@@ -41,16 +35,7 @@ const PostsManager = () => {
   const location = useLocation();
 
   const { fetchPosts, fetchPostsByTag } = usePostHandlers();
-  const {
-    fetchComments,
-    deleteComments,
-    likeComment,
-    comments,
-    setNewComment,
-    setSelectedComment,
-    setShowAddCommentDialog,
-    setShowEditCommentDialog,
-  } = useCommentHandlers();
+  const { fetchComments } = useCommentHandlers();
 
   // 상태 관리
   const [skip, setSkip] = useAtom(skipAtom);
@@ -59,14 +44,12 @@ const PostsManager = () => {
   const [sortBy, setSortBy] = useAtom(sortByAtom);
   const [sortOrder, setSortOrder] = useAtom(sortOrderAtom);
   const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
-  const [showAddDialog, setShowAddDialog] = useAtom(showAddDialogAtom);
-  const [selectedPost, setSelectedPost] = useAtom(selectedPostAtom);
-  const [selectedUser, setSelectedUser] = useAtom(selectedUserAtom);
-  const [showUserModal, setShowUserModal] = useAtom(showUserModalAtom);
-  const [showPostDetailDialog, setShowPostDetailDialog] = useAtom(
-    showPostDetailDialogAtom
-  );
-  const [tags, setTags] = useAtom(tagsAtom);
+  const [, setShowAddDialog] = useAtom(showAddDialogAtom);
+  const [, setSelectedPost] = useAtom(selectedPostAtom);
+  const [, setSelectedUser] = useAtom(selectedUserAtom);
+  const [, setShowUserModal] = useAtom(showUserModalAtom);
+  const [, setTags] = useAtom(tagsAtom);
+  const [, setShowPostDetailDialog] = useAtom(showPostDetailDialogAtom);
 
   // URL 업데이트 함수
   const updateURL = () => {
@@ -148,46 +131,7 @@ const PostsManager = () => {
           openPostDetail={openPostDetail}
         />
       </CardContent>
-
-      {/* 게시물 추가 대화상자 */}
-      <PostAddDialog />
-
-      {/* 게시물 수정 대화상자 */}
-      <PostEditDialog />
-
-      {/* 댓글 추가 대화상자 */}
-      <CommentAddDialog />
-
-      {/* 댓글 수정 대화상자 */}
-      <CommentEditDialog />
-
-      {/* 게시물 상세 보기 대화상자 */}
-      <PostDetailDialog
-        open={showPostDetailDialog}
-        onOpenChange={setShowPostDetailDialog}
-        selectedPost={selectedPost}
-        searchQuery={searchQuery}
-        CommentsListComponent={({ postId }) => (
-          <CommentsList
-            comments={comments}
-            postId={postId}
-            searchQuery={searchQuery}
-            setNewComment={setNewComment}
-            setShowAddCommentDialog={setShowAddCommentDialog}
-            likeComment={likeComment}
-            deleteComment={deleteComments}
-            setSelectedComment={setSelectedComment}
-            setShowEditCommentDialog={setShowEditCommentDialog}
-          />
-        )}
-      />
-
-      {/* 사용자 모달 */}
-      <UserInfoDialog
-        open={showUserModal}
-        onOpenChange={setShowUserModal}
-        selectedUser={selectedUser}
-      />
+      <PostDialogs />
     </Card>
   );
 };
