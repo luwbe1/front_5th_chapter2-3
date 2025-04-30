@@ -6,7 +6,7 @@ import {
   TableBody,
   TableCell,
   Button,
-} from '../../../shared/ui';
+} from '@/shared/ui';
 import {
   ThumbsUp,
   ThumbsDown,
@@ -14,9 +14,14 @@ import {
   Edit2,
   Trash2,
 } from 'lucide-react';
-import { highlightText } from '../../../shared/utils/highlightText';
-import { Post } from '../../../entities/post/model/type';
-import { User } from '../../../entities/user/model/type';
+import { highlightText } from '@/shared/utils/highlightText';
+import { Post } from '@/entities/post/model/type';
+import { User } from '@/entities/user/model/type';
+import { useAtom } from 'jotai';
+import {
+  selectedPostAtom,
+  showEditDialogAtom,
+} from '@/entities/post/model/atom';
 
 interface PostTableProps {
   posts: Post[];
@@ -26,8 +31,6 @@ interface PostTableProps {
   updateURL: () => void;
   openUserModal: (user: User) => void;
   openPostDetail: (post: Post) => void;
-  setSelectedPost: (post: Post) => void;
-  setShowEditDialog: (open: boolean) => void;
   deletePost: (postId: number) => void;
 }
 
@@ -39,10 +42,11 @@ export const PostTable = ({
   updateURL,
   openUserModal,
   openPostDetail,
-  setSelectedPost,
-  setShowEditDialog,
   deletePost,
 }: PostTableProps) => {
+  const [, setSelectedPost] = useAtom(selectedPostAtom);
+  const [, setShowEditDialog] = useAtom(showEditDialogAtom);
+
   return (
     <Table>
       <TableHeader>
@@ -84,14 +88,14 @@ export const PostTable = ({
             <TableCell>
               <div
                 className="flex items-center space-x-2 cursor-pointer"
-                onClick={() => openUserModal(post.user.author)}
+                onClick={() => openUserModal(post.author)}
               >
                 <img
-                  src={post.user?.image}
-                  alt={post.user?.username}
+                  src={post.author?.image}
+                  alt={post.author?.username}
                   className="w-8 h-8 rounded-full"
                 />
-                <span>{post.user?.username}</span>
+                <span>{post.author?.username}</span>
               </div>
             </TableCell>
             <TableCell>
