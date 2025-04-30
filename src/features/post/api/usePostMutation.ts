@@ -3,7 +3,7 @@ import {
   postCreatePost,
   putUpdatedPost,
   deletePost,
-} from '../../../entities/post/api/api';
+} from '@/entities/post/api/api';
 
 export const useCreatePost = () => {
   const queryClient = useQueryClient();

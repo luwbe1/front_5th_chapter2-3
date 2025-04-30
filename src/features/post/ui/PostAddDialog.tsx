@@ -6,26 +6,15 @@ import {
   Input,
   Textarea,
   Button,
-} from '../../../shared/ui';
-import { Post } from '../../../entities/post/model/type';
+} from '@/shared/ui';
+import { usePostHandlers } from '@/entities/post/model/usePostHandlers';
 
-interface PostAddDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  newPost: { title: string; body: string; userId: number };
-  setNewPost: (post: Post) => void;
-  addPost: () => void;
-}
+export const PostAddDialog = () => {
+  const { showAddDialog, setShowAddDialog, newPost, setNewPost, addPost } =
+    usePostHandlers();
 
-export const PostAddDialog = ({
-  open,
-  onOpenChange,
-  newPost,
-  setNewPost,
-  addPost,
-}: PostAddDialogProps) => {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>새 게시물 추가</DialogTitle>

@@ -1,10 +1,5 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '../../../shared/ui';
-import { User } from '../../../entities/user/model/type';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui';
+import { User } from '@/entities/user/model/type';
 
 interface UserInfoDialogProps {
   open: boolean;

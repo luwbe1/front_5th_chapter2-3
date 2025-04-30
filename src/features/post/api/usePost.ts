@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPosts } from '../../../entities/post/api/api';
+import { getPosts } from '@/entities/post/api/api';
 
 export const usePosts = (limit: number, skip: number) => {
   return useQuery({

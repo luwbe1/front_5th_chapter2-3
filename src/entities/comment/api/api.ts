@@ -1,4 +1,4 @@
-import { fetchInstance } from '../../../shared/lib/fetchInstance';
+import { fetchInstance } from '@/shared/lib/fetchInstance';
 import {
   FetchCommentsResponse,
   Comment,
@@ -34,7 +34,7 @@ export const deleteComment = (id: number) => {
 };
 
 // 댓글 좋아요
-export const likeCommentRequest = (id: number, likes: number) => {
+export const patchLikeComment = (id: number, likes: number) => {
   return fetchInstance<Comment>(`/api/comments/${id}`, {
     method: 'PATCH',
     body: JSON.stringify({ likes }),

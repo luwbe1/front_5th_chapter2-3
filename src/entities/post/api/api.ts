@@ -1,4 +1,4 @@
-import { fetchInstance } from '../../../shared/lib/fetchInstance';
+import { fetchInstance } from '@/shared/lib/fetchInstance';
 import { FetchPostsResponse, FetchTagsResponse, Post } from '../model/type';
 
 export const getPosts = (limit: number, skip: number) => {

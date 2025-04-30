@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../../shared/ui';
+} from '@/shared/ui';
 import { Search } from 'lucide-react';
 
 interface PostFiltersProps {

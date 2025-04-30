@@ -5,26 +5,20 @@ import {
   DialogTitle,
   Textarea,
   Button,
-} from '../../../shared/ui';
-import { CreateCommentRequest } from '../../../entities/comment/model/type';
+} from '@/shared/ui';
+import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
 
-interface CommentAddDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  newComment: { body: string; postId: number; userId: number };
-  setNewComment: (comment: CreateCommentRequest) => void;
-  addComment: () => void;
-}
+export const CommentAddDialog = () => {
+  const {
+    showAddCommentDialog,
+    setShowAddCommentDialog,
+    newComment,
+    setNewComment,
+    addComment,
+  } = useCommentHandlers();
 
-export const CommentAddDialog = ({
-  open,
-  onOpenChange,
-  newComment,
-  setNewComment,
-  addComment,
-}: CommentAddDialogProps) => {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={showAddCommentDialog} onOpenChange={setShowAddCommentDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>새 댓글 추가</DialogTitle>

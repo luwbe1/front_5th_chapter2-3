@@ -1,4 +1,4 @@
-import { fetchInstance } from '../../../shared/lib/fetchInstance';
+import { fetchInstance } from '@/shared/lib/fetchInstance';
 import { FetchUsersResponse, User } from '../model/type';
 
 export const getUsers = async () => {

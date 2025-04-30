@@ -5,28 +5,24 @@ import {
   DialogTitle,
   Textarea,
   Button,
-} from '../../../shared/ui';
-import { Comment } from '../../../entities/comment/model/type';
+} from '@/shared/ui';
+import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
 
-interface CommentEditDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  selectedComment: Comment | null;
-  setSelectedComment: (comment: Comment) => void;
-  updateComment: () => void;
-}
-
-export const CommentEditDialog = ({
-  open,
-  onOpenChange,
-  selectedComment,
-  setSelectedComment,
-  updateComment,
-}: CommentEditDialogProps) => {
+export const CommentEditDialog = () => {
+  const {
+    showEditCommentDialog,
+    setShowEditCommentDialog,
+    selectedComment,
+    setSelectedComment,
+    updateComment,
+  } = useCommentHandlers();
   if (!selectedComment) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={showEditCommentDialog}
+      onOpenChange={setShowEditCommentDialog}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>댓글 수정</DialogTitle>

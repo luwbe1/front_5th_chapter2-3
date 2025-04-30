@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../../shared/ui';
+} from '@/shared/ui';
 
 interface PostPaginationProps {
   skip: number;

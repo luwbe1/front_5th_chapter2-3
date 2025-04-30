@@ -1,11 +1,6 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '../../../shared/ui';
-import { highlightText } from '../../../shared/utils/highlightText';
-import { Post } from '../../../entities/post/model/type';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui';
+import { highlightText } from '@/shared/utils/highlightText';
+import { Post } from '@/entities/post/model/type';
 
 interface PostDetailDialogProps {
   open: boolean;

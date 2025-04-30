@@ -6,28 +6,22 @@ import {
   Input,
   Textarea,
   Button,
-} from '../../../shared/ui';
-import { Post } from '../../../entities/post/model/type';
+} from '@/shared/ui';
+import { usePostHandlers } from '@/entities/post/model/usePostHandlers';
 
-interface PostEditDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  selectedPost: Post | null;
-  setSelectedPost: (post: Post) => void;
-  updatePost: () => void;
-}
+export const PostEditDialog = () => {
+  const {
+    showEditDialog,
+    setShowEditDialog,
+    selectedPost,
+    setSelectedPost,
+    updatePost,
+  } = usePostHandlers();
 
-export const PostEditDialog = ({
-  open,
-  onOpenChange,
-  selectedPost,
-  setSelectedPost,
-  updatePost,
-}: PostEditDialogProps) => {
   if (!selectedPost) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>게시물 수정</DialogTitle>

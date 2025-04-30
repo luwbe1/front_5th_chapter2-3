@@ -1,10 +1,7 @@
-import { Button } from '../../../shared/ui';
+import { Button } from '@/shared/ui';
 import { ThumbsUp, Edit2, Trash2, Plus } from 'lucide-react';
-import { highlightText } from '../../../shared/utils/highlightText';
-import {
-  Comment,
-  CreateCommentRequest,
-} from '../../../entities/comment/model/type';
+import { highlightText } from '@/shared/utils/highlightText';
+import { Comment, CreateCommentRequest } from '@/entities/comment/model/type';
 
 interface CommentsListProps {
   comments: Record<number, Comment[]>;
