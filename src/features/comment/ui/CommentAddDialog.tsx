@@ -6,16 +6,27 @@ import {
   Textarea,
   Button,
 } from '@/shared/ui';
-import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
+import { useCommentState } from '@/entities/comment/model/useCommentState';
+import { useAddComment } from '../api/useCommentMutation';
 
 export const CommentAddDialog = () => {
+  const { mutate: addComment } = useAddComment();
+
   const {
     showAddCommentDialog,
     setShowAddCommentDialog,
     newComment,
     setNewComment,
-    addComment,
-  } = useCommentHandlers();
+  } = useCommentState();
+
+  const handleAddComment = () => {
+    addComment(newComment, {
+      onSuccess: () => {
+        setShowAddCommentDialog(false);
+        setNewComment({ body: '', postId: 0, userId: 1 });
+      },
+    });
+  };
 
   return (
     <Dialog open={showAddCommentDialog} onOpenChange={setShowAddCommentDialog}>
@@ -31,7 +42,7 @@ export const CommentAddDialog = () => {
               setNewComment({ ...newComment, body: e.target.value })
             }
           />
-          <Button onClick={addComment}>댓글 추가</Button>
+          <Button onClick={handleAddComment}>댓글 추가</Button>
         </div>
       </DialogContent>
     </Dialog>

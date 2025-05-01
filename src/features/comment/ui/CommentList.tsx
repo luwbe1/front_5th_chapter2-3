@@ -1,18 +1,20 @@
 import { Button } from '@/shared/ui';
 import { ThumbsUp, Edit2, Trash2, Plus } from 'lucide-react';
 import { highlightText } from '@/shared/utils/highlightText';
-import { Comment, CreateCommentRequest } from '@/entities/comment/model/type';
+import { Comment } from '@/entities/comment/model/type';
+import { useDeleteComment, useLikeComment } from '../api/useCommentMutation';
+import { useSetAtom } from 'jotai';
+import {
+  newCommentAtom,
+  selectedCommentAtom,
+  showAddCommentDialogAtom,
+  showEditCommentDialogAtom,
+} from '@/entities/comment/model/commentAtoms';
 
 interface CommentsListProps {
   comments: Record<number, Comment[]>;
   postId: number;
   searchQuery: string;
-  setNewComment: (comment: CreateCommentRequest) => void;
-  setShowAddCommentDialog: (add: boolean) => void;
-  likeComment: (commentId: number, postId: number) => void;
-  deleteComment: (commentId: number, postId: number) => void;
-  setSelectedComment: (comment: Comment) => void;
-  setShowEditCommentDialog: (open: boolean) => void;
 }
 
 // 댓글 렌더링
@@ -20,13 +22,15 @@ export const CommentsList = ({
   comments,
   postId,
   searchQuery,
-  setNewComment,
-  setShowAddCommentDialog,
-  likeComment,
-  deleteComment,
-  setSelectedComment,
-  setShowEditCommentDialog,
 }: CommentsListProps) => {
+  const { mutate: deleteComment } = useDeleteComment();
+  const { mutate: likeComment } = useLikeComment();
+
+  const setNewComment = useSetAtom(newCommentAtom);
+  const setShowAddCommentDialog = useSetAtom(showAddCommentDialogAtom);
+  const setSelectedComment = useSetAtom(selectedCommentAtom);
+  const setShowEditCommentDialog = useSetAtom(showEditCommentDialogAtom);
+
   return (
     <div className="mt-2">
       <div className="flex items-center justify-between mb-2">
@@ -60,7 +64,9 @@ export const CommentsList = ({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => likeComment(comment.id, postId)}
+                onClick={() =>
+                  likeComment({ id: comment.id, currentLikes: comment.likes })
+                }
               >
                 <ThumbsUp className="w-3 h-3" />
                 <span className="ml-1 text-xs">{comment.likes}</span>
@@ -78,7 +84,7 @@ export const CommentsList = ({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => deleteComment(comment.id, postId)}
+                onClick={() => deleteComment({ id: comment.id, postId })}
               >
                 <Trash2 className="w-3 h-3" />
               </Button>

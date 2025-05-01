@@ -6,17 +6,26 @@ import {
   Textarea,
   Button,
 } from '@/shared/ui';
-import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
+import { useCommentState } from '@/entities/comment/model/useCommentState';
+import { useUpdateComment } from '../api/useCommentMutation';
 
 export const CommentEditDialog = () => {
+  const { mutate: updateComment } = useUpdateComment();
   const {
     showEditCommentDialog,
     setShowEditCommentDialog,
     selectedComment,
     setSelectedComment,
-    updateComment,
-  } = useCommentHandlers();
+  } = useCommentState();
   if (!selectedComment) return null;
+
+  const handleUpdateComment = () => {
+    updateComment(selectedComment, {
+      onSuccess: () => {
+        setShowEditCommentDialog(false);
+      },
+    });
+  };
 
   return (
     <Dialog
@@ -35,7 +44,7 @@ export const CommentEditDialog = () => {
               setSelectedComment({ ...selectedComment, body: e.target.value })
             }
           />
-          <Button onClick={updateComment}>댓글 업데이트</Button>
+          <Button onClick={handleUpdateComment}>댓글 업데이트</Button>
         </div>
       </DialogContent>
     </Dialog>
