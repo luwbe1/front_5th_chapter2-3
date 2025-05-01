@@ -4,7 +4,7 @@ import { useAtomValue, useAtom } from 'jotai';
 import {
   selectedPostAtom,
   showPostDetailDialogAtom,
-} from '@/entities/post/model/atom';
+} from '@/entities/post/model/postAtoms';
 import { searchQueryAtom } from '@/features/post/model/atom';
 import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
 import { CommentsList } from '@/features/comment/ui/CommentList';

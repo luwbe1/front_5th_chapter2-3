@@ -7,11 +7,23 @@ import {
   Textarea,
   Button,
 } from '@/shared/ui';
-import { usePostHandlers } from '@/entities/post/model/usePostHandlers';
+import { usePostState } from '@/entities/post/model/usePostState';
+import { useCreatePost } from '../api/usePostMutation';
 
 export const PostAddDialog = () => {
-  const { showAddDialog, setShowAddDialog, newPost, setNewPost, addPost } =
-    usePostHandlers();
+  const { showAddDialog, setShowAddDialog, newPost, setNewPost } =
+    usePostState();
+
+  const { mutate: createPost } = useCreatePost();
+
+  const handleAddPost = () => {
+    createPost(newPost, {
+      onSuccess: () => {
+        setShowAddDialog(false);
+        setNewPost({ title: '', body: '', userId: 1 });
+      },
+    });
+  };
 
   return (
     <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
@@ -39,7 +51,7 @@ export const PostAddDialog = () => {
               setNewPost({ ...newPost, userId: Number(e.target.value) })
             }
           />
-          <Button onClick={addPost}>게시물 추가</Button>
+          <Button onClick={handleAddPost}>게시물 추가</Button>
         </div>
       </DialogContent>
     </Dialog>

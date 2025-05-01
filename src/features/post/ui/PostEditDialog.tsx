@@ -7,18 +7,24 @@ import {
   Textarea,
   Button,
 } from '@/shared/ui';
-import { usePostHandlers } from '@/entities/post/model/usePostHandlers';
+import { usePostState } from '@/entities/post/model/usePostState';
+import { useUpdatePost } from '../api/usePostMutation';
 
 export const PostEditDialog = () => {
-  const {
-    showEditDialog,
-    setShowEditDialog,
-    selectedPost,
-    setSelectedPost,
-    updatePost,
-  } = usePostHandlers();
+  const { showEditDialog, setShowEditDialog, selectedPost, setSelectedPost } =
+    usePostState();
+
+  const { mutate: updatePost } = useUpdatePost();
 
   if (!selectedPost) return null;
+
+  const hanldeUpdatePost = () => {
+    updatePost(selectedPost, {
+      onSuccess: () => {
+        setShowEditDialog(false);
+      },
+    });
+  };
 
   return (
     <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
@@ -42,7 +48,7 @@ export const PostEditDialog = () => {
               setSelectedPost({ ...selectedPost, body: e.target.value })
             }
           />
-          <Button onClick={updatePost}>게시물 업데이트</Button>
+          <Button onClick={hanldeUpdatePost}>게시물 업데이트</Button>
         </div>
       </DialogContent>
     </Dialog>
