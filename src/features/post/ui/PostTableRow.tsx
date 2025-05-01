@@ -8,16 +8,15 @@ import {
 } from 'lucide-react';
 import { highlightText } from '@/shared/utils/highlightText';
 import { Post } from '@/entities/post/model/type';
-import { User } from '@/entities/user/model/type';
 import { useAtomValue } from 'jotai';
 import { searchQueryAtom } from '../model/atom';
+import { useUserModals } from '@/features/user/model/useUserModals';
+import { usePostModals } from '../model/usePostModals';
 
 interface PostRowProps {
   post: Post;
   selectedTag: string;
   onTagClick: (tag: string) => void;
-  openUserModal: (user?: User) => void;
-  openPostDetail: (post: Post) => void;
   onEdit: (post: Post) => void;
   onDelete: (postId: number) => void;
 }
@@ -26,12 +25,12 @@ export const PostTableRow = ({
   post,
   selectedTag,
   onTagClick,
-  openUserModal,
-  openPostDetail,
   onEdit,
   onDelete,
 }: PostRowProps) => {
   const searchQuery = useAtomValue(searchQueryAtom);
+  const { openUserModal } = useUserModals();
+  const { openPostDetail } = usePostModals();
 
   return (
     <TableRow key={post.id}>

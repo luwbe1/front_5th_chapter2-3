@@ -1,7 +1,7 @@
 import { fetchInstance } from '@/shared/lib/fetchInstance';
 import { FetchUsersResponse, User } from '../model/type';
 
-export const getUsers = async () => {
+export const getUsers = () => {
   return fetchInstance<FetchUsersResponse>(
     'users?limit=0&select=username,image'
   );

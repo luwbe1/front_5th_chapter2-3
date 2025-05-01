@@ -6,8 +6,6 @@ import {
   TableBody,
 } from '@/shared/ui';
 import { PostTableRow } from './PostTableRow';
-import { Post } from '@/entities/post/model/type';
-import { User } from '@/entities/user/model/type';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   loadingAtom,
@@ -19,22 +17,14 @@ import { selectedTagAtom } from '../model/atom';
 import { useUpdateURL } from '../model/useUpdateURL';
 import { useDeletePost } from '../api/usePostMutation';
 
-interface PostTableProps {
-  openUserModal: (user?: User) => void;
-  openPostDetail: (post: Post) => void;
-}
-
-export const PostsTable = ({
-  openUserModal,
-  openPostDetail,
-}: PostTableProps) => {
+export const PostsTable = () => {
   const posts = useAtomValue(postsAtom);
   const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
   const setSelectedPost = useSetAtom(selectedPostAtom);
   const setShowEditDialog = useSetAtom(showEditDialogAtom);
+  const loading = useAtomValue(loadingAtom);
   const { mutate: deletePost } = useDeletePost();
   const { updateURL } = useUpdateURL();
-  const loading = useAtomValue(loadingAtom);
 
   if (loading) return <div className="flex justify-center p-4">로딩 중...</div>;
   return (
@@ -58,8 +48,6 @@ export const PostsTable = ({
               setSelectedTag(tag);
               updateURL();
             }}
-            openUserModal={openUserModal}
-            openPostDetail={openPostDetail}
             onEdit={post => {
               setSelectedPost(post);
               setShowEditDialog(true);

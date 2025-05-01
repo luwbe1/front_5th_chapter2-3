@@ -9,10 +9,11 @@ import {
 } from '@/shared/ui';
 import { usePostState } from '@/entities/post/model/usePostState';
 import { useUpdatePost } from '../api/usePostMutation';
+import { useDialogState } from '@/entities/post/model/useDialogState';
 
 export const PostEditDialog = () => {
-  const { showEditDialog, setShowEditDialog, selectedPost, setSelectedPost } =
-    usePostState();
+  const { selectedPost, setSelectedPost } = usePostState();
+  const { showEditDialog, setShowEditDialog } = useDialogState();
 
   const { mutate: updatePost } = useUpdatePost();
 

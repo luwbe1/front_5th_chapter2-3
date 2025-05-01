@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import {
   skipAtom,
   limitAtom,
@@ -12,12 +12,12 @@ import {
 
 export const useUpdateURL = () => {
   const navigate = useNavigate();
-  const [skip] = useAtom(skipAtom);
-  const [limit] = useAtom(limitAtom);
-  const [searchQuery] = useAtom(searchQueryAtom);
-  const [sortBy] = useAtom(sortByAtom);
-  const [sortOrder] = useAtom(sortOrderAtom);
-  const [selectedTag] = useAtom(selectedTagAtom);
+  const skip = useAtomValue(skipAtom);
+  const limit = useAtomValue(limitAtom);
+  const searchQuery = useAtomValue(searchQueryAtom);
+  const sortBy = useAtomValue(sortByAtom);
+  const sortOrder = useAtomValue(sortOrderAtom);
+  const selectedTag = useAtomValue(selectedTagAtom);
 
   const updateURL = useCallback(() => {
     const params = new URLSearchParams();

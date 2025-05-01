@@ -1,9 +1,9 @@
 import { Button, CardTitle } from '@/shared/ui';
 import { Plus } from 'lucide-react';
-import { usePostState } from '@/entities/post/model/usePostState';
+import { useDialogState } from '@/entities/post/model/useDialogState';
 
 export const PostHeader = () => {
-  const { setShowAddDialog } = usePostState();
+  const { setShowAddDialog } = useDialogState();
 
   return (
     <CardTitle className="flex items-center justify-between">

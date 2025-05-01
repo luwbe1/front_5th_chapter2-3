@@ -21,11 +21,11 @@ import { useSearchPosts } from '@/features/post/model/useSearchPosts';
 import { useFetchPostsByTag } from '../model/useFetchPostsByTag';
 import { useFetchPosts } from '@/features/post/model/useFetchPosts';
 import { useFetchTags } from '../model/useFetchTags';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useUpdateURL } from '../model/useUpdateURL';
 import { useLocation } from 'react-router-dom';
 
-export const PostsFilters = () => {
+export const PostsFilters = React.memo(() => {
   const location = useLocation();
   const [skip, setSkip] = useAtom(skipAtom);
   const [limit, setLimit] = useAtom(limitAtom);
@@ -140,4 +140,4 @@ export const PostsFilters = () => {
       </Select>
     </div>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { useSetAtom, useAtom } from 'jotai';
+import { useSetAtom, useAtomValue } from 'jotai';
 import {
   postsAtom,
   totalAtom,
@@ -12,8 +12,8 @@ export const useFetchPosts = () => {
   const setPosts = useSetAtom(postsAtom);
   const setTotal = useSetAtom(totalAtom);
   const setLoading = useSetAtom(loadingAtom);
-  const [skip] = useAtom(skipAtom);
-  const [limit] = useAtom(limitAtom);
+  const skip = useAtomValue(skipAtom);
+  const limit = useAtomValue(limitAtom);
 
   const { refetch } = usePostsQuery(limit, skip);
 

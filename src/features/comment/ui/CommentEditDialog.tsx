@@ -8,15 +8,12 @@ import {
 } from '@/shared/ui';
 import { useCommentState } from '@/entities/comment/model/useCommentState';
 import { useUpdateComment } from '../api/useCommentMutation';
+import { useDialogState } from '@/entities/comment/model/useDialogState';
 
 export const CommentEditDialog = () => {
   const { mutate: updateComment } = useUpdateComment();
-  const {
-    showEditCommentDialog,
-    setShowEditCommentDialog,
-    selectedComment,
-    setSelectedComment,
-  } = useCommentState();
+  const { selectedComment, setSelectedComment } = useCommentState();
+  const { showEditCommentDialog, setShowEditCommentDialog } = useDialogState();
   if (!selectedComment) return null;
 
   const handleUpdateComment = () => {

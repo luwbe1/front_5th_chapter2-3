@@ -9,7 +9,7 @@ export const getTags = () => {
   return fetchInstance<FetchTagsResponse>('posts/tags');
 };
 
-export const getSearchedPosts = async (query: string) => {
+export const getSearchedPosts = (query: string) => {
   return fetchInstance<FetchPostsResponse>(`posts/search?q=${query}`);
 };
 
