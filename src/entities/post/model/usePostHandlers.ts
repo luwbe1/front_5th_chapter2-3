@@ -6,6 +6,7 @@ import {
   selectedPostAtom,
   showAddDialogAtom,
   showEditDialogAtom,
+  tagsAtom,
 } from '../model/atom';
 import {
   getPosts,
@@ -14,6 +15,7 @@ import {
   postCreatePost,
   putUpdatedPost,
   deletePost,
+  getTags,
 } from '../api/api';
 import {
   getUsers, //  추후 분리 예정: User 도메인의 API
@@ -23,6 +25,7 @@ import { limitAtom, skipAtom } from '@/features/post/model/atom';
 export const usePostHandlers = () => {
   const setPosts = useSetAtom(postsAtom);
   const setTotal = useSetAtom(totalAtom);
+  const setTags = useSetAtom(tagsAtom);
   const [newPost, setNewPost] = useAtom(newPostAtom);
   const [selectedPost, setSelectedPost] = useAtom(selectedPostAtom);
   const [showAddDialog, setShowAddDialog] = useAtom(showAddDialogAtom);
@@ -91,6 +94,12 @@ export const usePostHandlers = () => {
     setPosts(prev => prev.filter(post => post.id !== id));
   };
 
+  // 태그 가져오기
+  const fetchTags = async () => {
+    const tagsData = await getTags();
+    setTags(tagsData);
+  };
+
   return {
     fetchPosts,
     fetchPostsByTag,
@@ -106,5 +115,6 @@ export const usePostHandlers = () => {
     setNewPost,
     selectedPost,
     setSelectedPost,
+    fetchTags,
   };
 };
