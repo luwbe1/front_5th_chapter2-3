@@ -6,22 +6,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui';
+import { useAtom, useAtomValue } from 'jotai';
+import { skipAtom, limitAtom } from '@/features/post/model/atom';
+import { totalAtom } from '@/entities/post/model/postAtoms';
 
-interface PostPaginationProps {
-  skip: number;
-  limit: number;
-  total: number;
-  setSkip: (skip: number) => void;
-  setLimit: (limit: number) => void;
-}
+export const PostPagination = () => {
+  const [skip, setSkip] = useAtom(skipAtom);
+  const [limit, setLimit] = useAtom(limitAtom);
+  const total = useAtomValue(totalAtom);
 
-export const PostPagination = ({
-  skip,
-  limit,
-  total,
-  setSkip,
-  setLimit,
-}: PostPaginationProps) => {
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-2">

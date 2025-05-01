@@ -17,35 +17,32 @@ import {
 import { highlightText } from '@/shared/utils/highlightText';
 import { Post } from '@/entities/post/model/type';
 import { User } from '@/entities/user/model/type';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import {
+  postsAtom,
   selectedPostAtom,
   showEditDialogAtom,
-} from '@/entities/post/model/atom';
+} from '@/entities/post/model/postAtoms';
+import { searchQueryAtom, selectedTagAtom } from '../model/atom';
+import { useUpdateURL } from '../model/useUpdateURL';
+import { useDeletePost } from '../api/usePostMutation';
 
 interface PostTableProps {
-  posts: Post[];
-  searchQuery: string;
-  selectedTag: string;
-  setSelectedTag: (tag: string) => void;
-  updateURL: () => void;
-  openUserModal: (user: User) => void;
+  openUserModal: (user?: User) => void;
   openPostDetail: (post: Post) => void;
-  deletePost: (postId: number) => void;
 }
 
 export const PostTable = ({
-  posts,
-  searchQuery,
-  selectedTag,
-  setSelectedTag,
-  updateURL,
   openUserModal,
   openPostDetail,
-  deletePost,
 }: PostTableProps) => {
+  const posts = useAtomValue(postsAtom);
+  const searchQuery = useAtomValue(searchQueryAtom);
+  const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
   const [, setSelectedPost] = useAtom(selectedPostAtom);
   const [, setShowEditDialog] = useAtom(showEditDialogAtom);
+  const { mutate: deletePost } = useDeletePost();
+  const { updateURL } = useUpdateURL();
 
   return (
     <Table>
@@ -88,7 +85,7 @@ export const PostTable = ({
             <TableCell>
               <div
                 className="flex items-center space-x-2 cursor-pointer"
-                onClick={() => openUserModal(post.author)}
+                onClick={() => post.author && openUserModal(post.author)}
               >
                 <img
                   src={post.author?.image}

@@ -1,9 +1,10 @@
 import { Button, CardTitle } from '@/shared/ui';
 import { Plus } from 'lucide-react';
-import { usePostHandlers } from '@/entities/post/model/usePostHandlers';
+import { usePostState } from '@/entities/post/model/usePostState';
 
 export const PostHeader = () => {
-  const { setShowAddDialog } = usePostHandlers();
+  const { setShowAddDialog } = usePostState();
+
   return (
     <CardTitle className="flex items-center justify-between">
       <span>게시물 관리자</span>
