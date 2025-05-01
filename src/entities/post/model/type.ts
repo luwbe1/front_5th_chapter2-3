@@ -23,10 +23,10 @@ export interface FetchPostsResponse {
   limit: number;
 }
 
-export type FetchTagsResponse = Tag[];
-
 export interface Tag {
   slug: string;
   name: string;
   url: string;
 }
+
+export type FetchTagsResponse = Tag[];
