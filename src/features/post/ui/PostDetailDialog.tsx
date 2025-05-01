@@ -6,7 +6,7 @@ import {
   showPostDetailDialogAtom,
 } from '@/entities/post/model/postAtoms';
 import { searchQueryAtom } from '@/features/post/model/atom';
-import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
+import { useCommentState } from '@/entities/comment/model/useCommentState';
 import { CommentsList } from '@/features/comment/ui/CommentList';
 
 export const PostDetailDialog = () => {
@@ -15,16 +15,7 @@ export const PostDetailDialog = () => {
   const [showPostDetailDialog, setShowPostDetailDialog] = useAtom(
     showPostDetailDialogAtom
   );
-
-  const {
-    comments,
-    setNewComment,
-    setShowAddCommentDialog,
-    likeComment,
-    deleteComments,
-    setSelectedComment,
-    setShowEditCommentDialog,
-  } = useCommentHandlers();
+  const { comments } = useCommentState();
 
   if (!selectedPost) return null;
 
@@ -42,12 +33,6 @@ export const PostDetailDialog = () => {
             comments={comments}
             postId={selectedPost.id}
             searchQuery={searchQuery}
-            setNewComment={setNewComment}
-            setShowAddCommentDialog={setShowAddCommentDialog}
-            likeComment={likeComment}
-            deleteComment={deleteComments}
-            setSelectedComment={setSelectedComment}
-            setShowEditCommentDialog={setShowEditCommentDialog}
           />
         </div>
       </DialogContent>

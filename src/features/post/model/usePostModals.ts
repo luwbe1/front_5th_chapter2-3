@@ -3,11 +3,11 @@ import {
   selectedPostAtom,
   showPostDetailDialogAtom,
 } from '@/entities/post/model/postAtoms';
-import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
+import { useCommentState } from '@/entities/comment/model/useCommentState';
 import { Post } from '@/entities/post/model/type';
 
 export const usePostModals = () => {
-  const { fetchComments } = useCommentHandlers();
+  const { fetchComments } = useCommentState();
   const setSelectedPost = useSetAtom(selectedPostAtom);
   const setShowPostDetailDialog = useSetAtom(showPostDetailDialogAtom);
 
