@@ -2,7 +2,7 @@ import { useSetAtom } from 'jotai';
 import {
   selectedPostAtom,
   showPostDetailDialogAtom,
-} from '@/entities/post/model/atom';
+} from '@/entities/post/model/postAtoms';
 import { useCommentHandlers } from '@/entities/comment/model/useCommentHandlers';
 import { Post } from '@/entities/post/model/type';
 

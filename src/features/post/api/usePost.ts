@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPosts } from '@/entities/post/api/api';
+import { fetchPostsData } from '@/entities/post/api/fetchPostsData';
 
-export const usePosts = (limit: number, skip: number) => {
+export const usePostsQuery = (limit: number, skip: number) => {
   return useQuery({
     queryKey: ['posts', limit, skip],
-    queryFn: () => getPosts(limit, skip),
-    staleTime: 1000 * 60, // 1분 캐시 유지
+    queryFn: () => fetchPostsData(limit, skip),
+    staleTime: 1000 * 60,
   });
 };
