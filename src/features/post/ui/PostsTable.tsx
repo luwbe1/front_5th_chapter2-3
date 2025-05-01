@@ -10,6 +10,7 @@ import { Post } from '@/entities/post/model/type';
 import { User } from '@/entities/user/model/type';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
+  loadingAtom,
   postsAtom,
   selectedPostAtom,
   showEditDialogAtom,
@@ -33,7 +34,9 @@ export const PostsTable = ({
   const setShowEditDialog = useSetAtom(showEditDialogAtom);
   const { mutate: deletePost } = useDeletePost();
   const { updateURL } = useUpdateURL();
+  const loading = useAtomValue(loadingAtom);
 
+  if (loading) return <div className="flex justify-center p-4">로딩 중...</div>;
   return (
     <Table>
       <TableHeader>
