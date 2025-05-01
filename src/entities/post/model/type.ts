@@ -1,3 +1,5 @@
+import { User } from '@/entities/user/model/type';
+
 export interface Post {
   id: number;
   title: string;
@@ -6,6 +8,7 @@ export interface Post {
   reactions: Reactions;
   view: number;
   userId: number;
+  author?: User;
 }
 
 interface Reactions {
