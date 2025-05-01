@@ -6,8 +6,8 @@ import {
   showPostDetailDialogAtom,
 } from '@/entities/post/model/postAtoms';
 import { searchQueryAtom } from '@/features/post/model/atom';
-import { useCommentState } from '@/entities/comment/model/useCommentState';
 import { CommentsList } from '@/features/comment/ui/CommentList';
+import { useCommentState } from '@/entities/comment/model/useCommentState';
 
 export const PostDetailDialog = () => {
   const selectedPost = useAtomValue(selectedPostAtom);
