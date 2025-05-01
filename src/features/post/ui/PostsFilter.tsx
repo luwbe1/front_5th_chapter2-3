@@ -25,7 +25,7 @@ import { useFetchTags } from '../model/useFetchTags';
 import { useEffect } from 'react';
 import { useUpdateURL } from '../model/useUpdateURL';
 
-export const PostFilters = () => {
+export const PostsFilters = () => {
   const location = useLocation();
   const [skip, setSkip] = useAtom(skipAtom);
   const [limit, setLimit] = useAtom(limitAtom);

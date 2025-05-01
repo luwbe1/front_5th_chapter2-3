@@ -32,7 +32,7 @@ interface PostTableProps {
   openPostDetail: (post: Post) => void;
 }
 
-export const PostTable = ({
+export const PostsTable = ({
   openUserModal,
   openPostDetail,
 }: PostTableProps) => {
