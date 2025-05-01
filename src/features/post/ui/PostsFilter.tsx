@@ -106,8 +106,8 @@ export const PostsFilters = () => {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">모든 태그</SelectItem>
-          {tags.map(tag => (
-            <SelectItem key={tag.url} value={tag.slug}>
+          {tags.map((tag, index) => (
+            <SelectItem key={index} value={tag.slug}>
               {tag.slug}
             </SelectItem>
           ))}

@@ -4,6 +4,7 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/front_5th_chapter2-3/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -17,6 +18,13 @@ export default defineConfig({
         target: 'https://dummyjson.com',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
       },
     },
   },

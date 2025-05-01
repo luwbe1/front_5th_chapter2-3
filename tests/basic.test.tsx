@@ -18,12 +18,17 @@ const server = setupServer(
     return HttpResponse.json(TEST_POSTS);
   }),
 
-  http.get(
-    '/api/posts/search?q=His%20mother%20had%20always%20taught%20him',
-    () => {
+  http.get('/api/posts/search', ({ request }) => {
+    const url = new URL(request.url);
+    const query = url.searchParams.get('q');
+
+    // query === 'His mother had always taught him'일 때 테스트용 응답
+    if (query === 'His mother had always taught him') {
       return HttpResponse.json(TEST_SEARCH_POST);
     }
-  ),
+
+    return HttpResponse.json(TEST_SEARCH_POST);
+  }),
 
   http.get('/api/users', () => {
     return HttpResponse.json(TEST_USERS);

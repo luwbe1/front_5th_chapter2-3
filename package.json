@@ -10,13 +10,17 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "prettier": "prettier --write ./src"
+    "prettier": "prettier --write ./src",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.74.4",
     "@tanstack/react-query-devtools": "^5.74.6",
+    "gh-pages": "^6.3.0",
     "jotai": "^2.12.3",
     "react": "^19.1.0",
+    "react-devtools": "^6.1.1",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
@@ -45,5 +49,6 @@
     "vite": "^6.3.3",
     "vitest": "^3.1.2",
     "vitest-browser-react": "^0.1.1"
-  }
+  },
+  "homepage": "https://ph-1dnjs.github.io/front_5th_chapter2-3/"
 }
