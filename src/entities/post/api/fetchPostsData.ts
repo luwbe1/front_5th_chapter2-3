@@ -3,8 +3,10 @@ import { getUsers } from '@/entities/user/api/api';
 import { User } from '@/entities/user/model/type';
 
 export const fetchPostsData = async (limit: number, skip: number) => {
-  const postsData = await getPosts(limit, skip);
-  const usersData = await getUsers();
+  const [postsData, usersData] = await Promise.all([
+    getPosts(limit, skip),
+    getUsers(),
+  ]);
 
   const postsWithUsers = postsData.posts.map(post => ({
     ...post,

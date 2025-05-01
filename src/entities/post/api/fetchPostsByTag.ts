@@ -3,8 +3,10 @@ import { getUsers } from '@/entities/user/api/api';
 import { User } from '@/entities/user/model/type';
 
 export const fetchPostsByTagData = async (tag: string) => {
-  const postsData = await getPostsByTag(tag);
-  const usersData = await getUsers();
+  const [postsData, usersData] = await Promise.all([
+    getPostsByTag(tag),
+    getUsers(),
+  ]);
 
   const postsWithUsers = postsData.posts.map(post => ({
     ...post,

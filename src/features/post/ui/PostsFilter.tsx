@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui';
-import { useLocation } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { useAtom, useAtomValue } from 'jotai';
 import {
@@ -24,6 +23,7 @@ import { useFetchPosts } from '@/features/post/model/useFetchPosts';
 import { useFetchTags } from '../model/useFetchTags';
 import { useEffect } from 'react';
 import { useUpdateURL } from '../model/useUpdateURL';
+import { useLocation } from 'react-router-dom';
 
 export const PostsFilters = () => {
   const location = useLocation();
@@ -71,11 +71,11 @@ export const PostsFilters = () => {
   }, [
     location.search,
     setLimit,
-    setSkip,
     setSearchQuery,
+    setSelectedTag,
+    setSkip,
     setSortBy,
     setSortOrder,
-    setSelectedTag,
   ]);
 
   return (

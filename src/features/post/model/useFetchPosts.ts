@@ -6,7 +6,7 @@ import {
 } from '@/entities/post/model/postAtoms';
 import { usePostsQuery } from '../api/usePost';
 import { skipAtom, limitAtom } from './atom';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 export const useFetchPosts = () => {
   const setPosts = useSetAtom(postsAtom);
@@ -15,11 +15,7 @@ export const useFetchPosts = () => {
   const [skip] = useAtom(skipAtom);
   const [limit] = useAtom(limitAtom);
 
-  const { refetch, isFetching } = usePostsQuery(limit, skip);
-
-  useEffect(() => {
-    setLoading(isFetching);
-  }, [isFetching, setLoading]);
+  const { refetch } = usePostsQuery(limit, skip);
 
   const fetchPosts = useCallback(async () => {
     setLoading(true);

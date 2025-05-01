@@ -7,7 +7,7 @@ import {
 import { useFetchPosts } from '@/features/post/model/useFetchPosts';
 import { usePostsByTagQuery } from '../api/usePostsByTag';
 import { selectedTagAtom } from './atom';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 export const useFetchPostsByTag = () => {
   const setPosts = useSetAtom(postsAtom);
@@ -16,11 +16,7 @@ export const useFetchPostsByTag = () => {
   const { fetchPosts } = useFetchPosts();
   const selectedTag = useAtomValue(selectedTagAtom);
 
-  const { isFetching, refetch } = usePostsByTagQuery(selectedTag);
-
-  useEffect(() => {
-    setLoading(isFetching);
-  }, [isFetching, setLoading]);
+  const { refetch } = usePostsByTagQuery(selectedTag);
 
   const fetchPostsByTag = useCallback(
     async (tag: string) => {
